@@ -36,7 +36,7 @@ import com.clockworksms.xml.xmlSMS;
 /**
  * Send text messages through your ClockWork API Account.
  * <p>You will need a ClockWork API Account available from
- * <a href="http://www.clockworksms.com/api/">http://www.clockworksms.com/api/</a></p>
+ * <a href="http://www.clockworksms.com/">http://www.clockworksms.com/</a></p>
  * 
  * <p>This library is distributed under the ISC Open Source license</p>
  * <p>Usage:</p>

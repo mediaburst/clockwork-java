@@ -24,7 +24,7 @@ Simply add clockwork-1.0.0.jar to your project. There's a compiled JAR file avai
 
 Add a reference to clockwork-1.0.0.jar and import the uk.com.clockworksms classes
 
-    import uk.com.clockworksms.*;
+    import com.clockworksms.*;
 
 ### Sending a message
     
