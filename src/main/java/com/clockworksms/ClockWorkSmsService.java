@@ -68,8 +68,8 @@ public class ClockWorkSmsService {
 	private String proxyUsername;
 	private String proxyPassword;
 	
-	private String version = "1.0"; // initial value. Actually read in from Manifest file
-	
+	private String version = "1.0.1";
+  
 	/**
 	 * Create a new SMS object passing your ClockWork API key
 	 * <p>Log in to the Clockwork website to generate a new key for your account</p>
@@ -350,7 +350,7 @@ public class ClockWorkSmsService {
 			connection.setReadTimeout(60000);			
 			connection.setRequestMethod("POST");
 			connection.setUseCaches(false);
-			connection.setFixedLengthStreamingMode(payLoad.length());
+      connection.setFixedLengthStreamingMode(payLoad.getBytes("UTF-8").length);
 			connection.setRequestProperty("content-type", "text/xml; charset=utf-8");
 			connection.setRequestProperty("User-Agent", "ClockWork Java Wrapper v" + this.version);
 			
