@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <project name="clockwork" default="dist" basedir=".">
-  <description>Build file for Clockwork SMS Java wrapper.</description>
+  <description>Build file for Clockwork SMS Java wrapper</description>
   <!-- set global properties for this build -->
   <property name="src" location="src/main/java"/>
   <property name="test" location="src/test/java"/>
   <property name="build" location="build"/>
   <property name="lib" location="lib"/>
+  <property name="javadoc" location="javadoc"/>
   <property name="dist" location="dist"/>
   <property name="reports" location="reports"/>
   <property name="project.name" value="clockwork"/>
@@ -22,8 +23,8 @@
   <target name="init">
     <!-- Create directory structures -->
     <mkdir dir="${build}"/>
+    <mkdir dir="${javadoc}"/>
     <mkdir dir="${dist}"/>
-    <mkdir dir="${dist}/lib"/>
     <mkdir dir="${reports}"/>
     <mkdir dir="${reports}/raw/"/>
     <mkdir dir="${reports}/html/"/>
@@ -57,22 +58,29 @@
     </junitreport>
   </target>
   <target name="jar" depends="compile">
-    <mkdir dir="${dist}/lib"/>
+    <mkdir dir="${dist}"/>
     <manifest file="${build}/MANIFEST.MF">
-      <attribute name="Built-By" value="mediabust.co.uk"/>
-      <attribute name="Main-Class" value="com.clockworksms.SmsServiceTest"/>
+      <attribute name="Built-By" value="clockworksms.com"/>
+      <attribute name="Main-Class" value="com.clockworksms.CommandLineClient"/>
       <attribute name="Implementation-Version" value="${version.num}"/>
       <attribute name="Built-Date" value="${TODAY}"/>
     </manifest>
-    <jar destfile="${dist}/lib/${project.name}-${version.num}.jar" basedir="${build}" includes="**/*.class" excludes="**/*Test*.class" manifest="${build}/MANIFEST.MF"/>
+    <jar destfile="${dist}/${project.name}-${version.num}.jar" basedir="${build}" includes="**/*.class" excludes="**/*Test*.class" manifest="${build}/MANIFEST.MF"/>
   </target>
-  <target name="dist" depends="clean, compile, test, jar" description="generate the distribution"/>
+  <target name="javadoc">
+    <javadoc access="public" destdir="${javadoc}" author="true" version="true" use="true" windowtitle="Clockwork SMS Java Wrapper API">
+      <fileset dir="${src}" defaultexcludes="yes">
+        <include name="**/*.java"/>
+      </fileset>
+    </javadoc>
+  </target>
+  <target name="dist" depends="clean, compile, jar" description="generate the distribution"/>
   <target name="clean" description="clean up">
     <!-- Delete the ${build} and ${dist} directory trees -->
     <delete dir="${build}"/>
     <delete dir="${dist}"/>
   </target>
   <target name="run" depends="dist">
-    <java jar="dist/lib/${project.name}-${version.num}.jar" fork="true"/>
+    <java jar="dist/${project.name}-${version.num}.jar" fork="true"/>
   </target>
 </project>
