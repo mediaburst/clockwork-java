@@ -23,6 +23,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import com.clockworksms.xml.BalanceRequest;
+import com.clockworksms.xml.BalanceResponse;
 import com.clockworksms.xml.CreditRequest;
 import com.clockworksms.xml.CreditResponse;
 import com.clockworksms.xml.MessageRequest;
@@ -268,6 +270,24 @@ public class ClockWorkSmsService {
 		}
 		
 		return creditResponse.getCredit();
+	}
+  
+	/**
+	 * Get the SMS balance
+	 * 
+	 * @return SMS balance
+	 * @throws ClockworkException
+	 */
+	public Balance checkBalance() throws ClockworkException {
+		BalanceRequest balanceRequest = new BalanceRequest(this.apiKey);
+		BalanceResponse balanceResponse = (BalanceResponse) this.postXml(balanceRequest);
+		
+		if(balanceResponse.hasError()) {
+			throw balanceResponse.getException();
+		}
+		
+    Balance balance = new Balance( balanceResponse.getBalance(), balanceResponse.getCurrencySymbol(), balanceResponse.getCurrencyCode() );
+    return balance;
 	}
 	
 	/**

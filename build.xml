@@ -10,7 +10,7 @@
   <property name="dist" location="dist"/>
   <property name="reports" location="reports"/>
   <property name="project.name" value="clockwork"/>
-  <property name="version.num" value="1.0.1"/>
+  <property name="version.num" value="1.2.0"/>
   <tstamp>
     <format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss"/>
   </tstamp>
