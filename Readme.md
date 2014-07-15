@@ -24,24 +24,30 @@ Simply add clockwork-*.jar to your project. There's a compiled JAR file availabl
 
 Add a reference to clockwork-*.jar and import the com.clockworksms classes
 
-    import com.clockworksms.*;
+```java
+import com.clockworksms.*;
+```
 
 ### Sending a message
-    
-	ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);
-	SMS sms = new SMS(TO, MESSAGE);			
-	ClockworkSmsResult result = clockWorkSmsService.send(sms);
+
+```java    
+ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);
+SMS sms = new SMS(TO, MESSAGE);			
+ClockworkSmsResult result = clockWorkSmsService.send(sms);
+```
 
 ### Sending multiple messages
 
 We recommend you use batch sizes of 500 messages or fewer. By limiting the batch size it prevents any timeouts when sending.
 
-	List<SMS> messages = new ArrayList<SMS>();
-	messages.add( new SMS(TO, MESSAGE) );
-	messages.add( new SMS(ANOTHER_TO, MESSAGE) );
-			
-	ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);
-	List<ClockworkSmsResult> results = clockWorkSmsService.send(messages);
+```java
+List<SMS> messages = new ArrayList<SMS>();
+messages.add( new SMS(TO, MESSAGE) );
+messages.add( new SMS(ANOTHER_TO, MESSAGE) );
+		
+ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);
+List<ClockworkSmsResult> results = clockWorkSmsService.send(messages);
+```
 
 ### Handling the response
 
@@ -55,22 +61,23 @@ If a message fails, the reason for failure will be set in `errorCode` and `error
 
 Check how many SMS credits you currently have available. This returns a Long.
 
-    ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);			
-    Long credit = clockWorkSmsService.checkCredit();
-    
+```java
+ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);			
+Long credit = clockWorkSmsService.checkCredit();
+```
+
 ### Handling Errors
 
 The Clockwork wrapper will throw a `ClockworkException` if the entire call failed.
 
-	try {
-		ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(INVALID_API_KEY);
-		clockWorkSmsService.checkCredit();
-	}
-    catch (ClockworkException e)
-    {
-        // Handle the exception
-	}
-    
+```java
+try {
+	ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(INVALID_API_KEY);
+	clockWorkSmsService.checkCredit();
+} catch (ClockworkException e) {
+	// Handle the exception
+}
+```    
 
 ### Advanced Usage
 
@@ -106,37 +113,41 @@ Options set on the API object will apply to all SMS messages unless specifically
 
 In this example both messages will be sent from Clockwork:
 
-	List<SMS> messages = new ArrayList<SMS>();
-			
-	SMS sms1 = new SMS();
-	messages.add( sms1 );
-			
-	SMS sms2 = new SMS();
-    messages.add( sms1 );
-	
-	ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);
-    clockWorkSmsService.setFrom("Clockwork");
+```java
+List<SMS> messages = new ArrayList<SMS>();
+		
+SMS sms1 = new SMS();
+messages.add( sms1 );
+		
+SMS sms2 = new SMS();
+messages.add( sms1 );
 
-	List<ClockworkSmsResult> results = clockWorkSmsService.send(messages);
-        
+ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);
+clockWorkSmsService.setFrom("Clockwork");
+
+List<ClockworkSmsResult> results = clockWorkSmsService.send(messages);
+```
+
 #### Per-message Options
 
 Set option values individually on each message.
 
 In this example, one message will be from Clockwork and the other from 84433:
 
-	List<SMS> messages = new ArrayList<SMS>();
-			
-	SMS sms1 = new SMS();
-	sms1.setFrom( "Clockwork" );
-	messages.add( sms1 );
-			
-	SMS sms2 = new SMS();
-	sms1.setFrom( "84433" );
-	messages.add( sms1 );
-			
-	ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);
-	List<ClockworkSmsResult> results = clockWorkSmsService.send(messages);
+```java
+List<SMS> messages = new ArrayList<SMS>();
+		
+SMS sms1 = new SMS();
+sms1.setFrom( "Clockwork" );
+messages.add( sms1 );
+		
+SMS sms2 = new SMS();
+sms1.setFrom( "84433" );
+messages.add( sms1 );
+		
+ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);
+List<ClockworkSmsResult> results = clockWorkSmsService.send(messages);
+```
 
 # License
 
