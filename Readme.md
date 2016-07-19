@@ -3,11 +3,10 @@
 This wrapper lets you interact with Clockwork without the hassle of having to create any XML or make HTTP calls.
 
 ## What's Clockwork?
+Clockwork is the SMS API from [Mediaburst][4].  It was previously called the Mediaburst SMS API, but we've re-branded it Clockwork
 
-The Mediaburst SMS API is being re-branded as Clockwork. At the same time we'll be launching some exciting new features
-and these shiny new wrappers.
+The terms Clockwork and "mediaburst SMS API" refer to exactly the same thing.
 
-The terms Clockwork and "Mediaburst SMS API" refer to exactly the same thing.
 
 ### Prerequisites
 
@@ -31,7 +30,7 @@ import com.clockworksms.*;
 ### Sending a message
 
 ```java    
-ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);
+ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);  //Be careful not to post your API Keys to public repositories 
 SMS sms = new SMS(TO, MESSAGE);			
 ClockworkSmsResult result = clockWorkSmsService.send(sms);
 ```
@@ -45,7 +44,7 @@ List<SMS> messages = new ArrayList<SMS>();
 messages.add( new SMS(TO, MESSAGE) );
 messages.add( new SMS(ANOTHER_TO, MESSAGE) );
 		
-ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);
+ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);  //Be careful not to post your API Keys to public repositories 
 List<ClockworkSmsResult> results = clockWorkSmsService.send(messages);
 ```
 
@@ -62,7 +61,7 @@ If a message fails, the reason for failure will be set in `errorCode` and `error
 Check how many SMS credits you currently have available. This returns a Long.
 
 ```java
-ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);			
+ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);  //Be careful not to post your API Keys to public repositories 
 Long credit = clockWorkSmsService.checkCredit();
 ```
 
@@ -171,3 +170,4 @@ and submit a pull request.
 
 [2]: http://www.clockworksms.com/
 [3]: https://github.com/mediaburst/clockwork-java/downloads/
+[4]: https://www.mediaburst.co.uk/
