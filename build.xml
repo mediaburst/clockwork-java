@@ -6,11 +6,16 @@
   <property name="test" location="src/test/java"/>
   <property name="build" location="build"/>
   <property name="lib" location="lib"/>
-  <property name="javadoc" location="javadoc"/>
   <property name="dist" location="dist"/>
-  <property name="reports" location="reports"/>
-  <property name="project.name" value="clockwork"/>
-  <property name="version.num" value="1.2.0"/>
+  <property name="reports" location="${dist}/reports"/>
+  <property name="version" value="1.2.0"/>
+  <!-- define Maven coordinates -->
+  <property name="groupId" value="com.clockworksms" />
+  <property name="artifactId" value="clockwork" />
+  <!-- define artifacts' name, which follows the convention of Maven -->
+  <property name="jar" value="${dist}/lib/${artifactId}-${version}.jar" />
+  <property name="javadoc-jar" value="${dist}/lib/${artifactId}-${version}-javadoc.jar" />
+  <property name="sources-jar" value="${dist}/lib/${artifactId}-${version}-sources.jar" />
   <tstamp>
     <format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss"/>
   </tstamp>
@@ -20,10 +25,14 @@
     <fileset dir="${lib}" includes="*.jar"/>
     <pathelement location="${build}"/>
   </path>
-  <target name="init">
+  <target name="clean" description="clean up">
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+  <target name="init" depends="clean">
     <!-- Create directory structures -->
     <mkdir dir="${build}"/>
-    <mkdir dir="${javadoc}"/>
     <mkdir dir="${dist}"/>
     <mkdir dir="${reports}"/>
     <mkdir dir="${reports}/raw/"/>
@@ -54,7 +63,7 @@
       <fileset dir="${reports}/raw/">
         <include name="TEST-*.xml"/>
       </fileset>
-      <report format="frames" todir="${reports}\html\"/>
+      <report format="frames" todir="${reports}/html/"/>
     </junitreport>
   </target>
   <target name="jar" depends="compile">
@@ -62,25 +71,27 @@
     <manifest file="${build}/MANIFEST.MF">
       <attribute name="Built-By" value="clockworksms.com"/>
       <attribute name="Main-Class" value="com.clockworksms.CommandLineClient"/>
-      <attribute name="Implementation-Version" value="${version.num}"/>
+      <attribute name="Implementation-Version" value="${version}"/>
       <attribute name="Built-Date" value="${TODAY}"/>
     </manifest>
-    <jar destfile="${dist}/${project.name}-${version.num}.jar" basedir="${build}" includes="**/*.class" excludes="**/*Test*.class" manifest="${build}/MANIFEST.MF"/>
+    <jar jarfile="${jar}" basedir="${build}" includes="**/*.class" excludes="**/*Test*.class" manifest="${build}/MANIFEST.MF"/>
   </target>
   <target name="javadoc">
-    <javadoc access="public" destdir="${javadoc}" author="true" version="true" use="true" windowtitle="Clockwork SMS Java Wrapper API">
+    <javadoc access="public" destdir="${dist}/javadoc" author="true" version="true" use="true" windowtitle="Clockwork SMS Java Wrapper API">
       <fileset dir="${src}" defaultexcludes="yes">
         <include name="**/*.java"/>
       </fileset>
     </javadoc>
   </target>
-  <target name="dist" depends="clean, compile, jar" description="generate the distribution"/>
-  <target name="clean" description="clean up">
-    <!-- Delete the ${build} and ${dist} directory trees -->
-    <delete dir="${build}"/>
-    <delete dir="${dist}"/>
-  </target>
-  <target name="run" depends="dist">
-    <java jar="dist/${project.name}-${version.num}.jar" fork="true"/>
+  <target name="dist" depends="jar, javadoc" description="generate the distribution">
+    <!-- build the javadoc jar -->
+    <jar jarfile="${javadoc-jar}">
+      <fileset dir="${dist}/javadoc" />
+    </jar>
+
+    <!-- build the sources jar -->
+    <jar jarfile="${sources-jar}">
+      <fileset dir="${src}" />
+    </jar>
   </target>
 </project>

@@ -19,6 +19,27 @@ If you're using Java SE 5 there are some additional dependencies for the Java XM
 
 Simply add clockwork-*.jar to your project. There's a compiled JAR file available in the [downloads][3] section.
 
+Alternatively you can add it as a dependency to your project via [Maven](http://mvnrepository.com/artifact/com.clockworksms/clockwork):
+
+```
+    <dependency>
+      <groupId>com.clockworksms</groupId>
+      <artifactId>clockwork</artifactId>
+      <version>1.x.x</version>
+      <scope>compile</scope>
+   </dependency>
+```
+
+### Compiling
+
+If you want to compile it yourself, here's how:
+
+```
+$ git clone git@github.com:mediaburst/clockwork-java.git
+$ cd clockwork-java
+$ ant dist
+```
+
 ## Usage
 
 Add a reference to clockwork-*.jar and import the com.clockworksms classes
@@ -148,6 +169,12 @@ ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);
 List<ClockworkSmsResult> results = clockWorkSmsService.send(messages);
 ```
 
+# Testing
+
+We use [JUnit](http://junit.org) as the test framework via [Ant](https://ant.apache.org/).
+
+To run the tests you'll need to add your API key to `src/test/java/com/clockworksms/SmsServiceSystemTest.java` and run `ant test` from the root of the project.
+
 # License
 
 This project is licensed under the ISC open-source license.
@@ -155,10 +182,6 @@ This project is licensed under the ISC open-source license.
 A copy of this license can be found in License.txt.
 
 # Contributing
-
-## Compiling
-
-To compile a JAR file, add your API key to src/test/java/com/clockworksms/SmsServiceSystemTest.java and run `ant dist` from the root of the project.
 
 ## Feedback
 
