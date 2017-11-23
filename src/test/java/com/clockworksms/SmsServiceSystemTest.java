@@ -217,6 +217,20 @@ public class SmsServiceSystemTest {
 			fail("should not throw Exception");
 		}	
 	}
+  
+	@Test
+	public void testBalance() {
+		try {
+			ClockWorkSmsService clockWorkSmsService = new ClockWorkSmsService(API_KEY);			
+			Balance balance = clockWorkSmsService.checkBalance();
+			assertNotNull("balance should not be null", balance.getBalance());
+			assertTrue("balance should be greater than zero", balance.getBalance() > 0);
+			assertNotNull("currency symbol should be set", balance.getCurrencySymbol());
+			assertNotNull("currency code should be set", balance.getCurrencyCode());
+		} catch (ClockworkException e) {
+			fail("should not throw Exception");
+		}	
+	}
 
 	@Test
 	public void testInvalidApiKey() {

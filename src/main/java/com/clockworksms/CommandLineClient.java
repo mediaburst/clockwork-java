@@ -100,6 +100,7 @@ public class CommandLineClient {
 
 		System.out.println("Type 'send' to send a message.");
 		System.out.println("Type 'credit' to check your credit.");
+		System.out.println("Type 'balance' to check your balance.");
 		System.out.println("Type 'quit' to exit.");
 		System.out.println("Type 'help' to list these options.\n");
 		
@@ -127,6 +128,9 @@ public class CommandLineClient {
 			}
 			else if("credit".equals(input)) {
 				checkCredit();
+			}
+			else if("balance".equals(input)) {
+				checkBalance();
 			}
 			else if("quit".equals(input)) {
 					System.out.println("Goodbye");
@@ -251,6 +255,15 @@ public class CommandLineClient {
 		try {			
 			long credit = service.checkCredit();
 			System.out.println("Your credit is currently " + credit);
+		} catch (ClockworkException e) {
+			e.printStackTrace();
+		}	
+	}
+  
+	private void checkBalance() {
+		try {			
+			Balance balance = service.checkBalance();
+			System.out.println("Your balance is currently " + balance.getBalance());
 		} catch (ClockworkException e) {
 			e.printStackTrace();
 		}	
