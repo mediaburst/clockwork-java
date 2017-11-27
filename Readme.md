@@ -3,23 +3,19 @@
 This wrapper lets you interact with Clockwork without the hassle of having to create any XML or make HTTP calls.
 
 ## What's Clockwork?
-Clockwork is the SMS API from [Mediaburst][4].  It was previously called the Mediaburst SMS API, but we've re-branded it Clockwork
 
-The terms Clockwork and "mediaburst SMS API" refer to exactly the same thing.
-
+Clockwork is a SMS API from [Mediaburst](https://www.mediaburst.co.uk). It provides an easy, solid SMS API with wrappers, plugins and integrations to cover just about any requirement.
 
 ### Prerequisites
 
-* A [Clockwork][2] account
+* A [Clockwork](https://www.clockworksms.com) account
 * Java SE 5 or above
 
 If you're using Java SE 5 there are some additional dependencies for the Java XML bindings, these can be found in lib/. To run the system/unit tests you need the JUnit library, which is also available in lib/.
 
 ## Installation
 
-Simply add clockwork-*.jar to your project. There's a compiled JAR file available in the [downloads][3] section.
-
-Alternatively you can add it as a dependency to your project via [Maven](http://mvnrepository.com/artifact/com.clockworksms/clockwork):
+Clockwork SMS is available via [Maven](http://mvnrepository.com/artifact/com.clockworksms/clockwork) and can be added as a dependency as follows:
 
 ```
     <dependency>
@@ -190,7 +186,3 @@ If you have any feedback on this wrapper drop us an email to hello@clockworksms.
 The project is hosted on GitHub at https://github.com/mediaburst/clockwork-java.
 If you would like to contribute a bug fix or improvement please fork the project 
 and submit a pull request.
-
-[2]: http://www.clockworksms.com/
-[3]: https://github.com/mediaburst/clockwork-java/downloads/
-[4]: https://www.mediaburst.co.uk/
